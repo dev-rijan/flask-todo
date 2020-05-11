@@ -2,6 +2,7 @@ from flask import Flask
 from werkzeug.debug import DebuggedApplication
 
 from todos.extensions import debug_toolbar
+from todos.blueprints.pages import page
 
 
 def create_app(settings_override=None):
@@ -23,9 +24,7 @@ def create_app(settings_override=None):
     if app.debug:
         app.wsgi_app = DebuggedApplication(app.wsgi_app, evalex=True)
 
-    @app.route('/')
-    def hello():
-        return "hello"
+    app.register_blueprint(page)
 
     return app
 
