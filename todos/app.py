@@ -1,7 +1,7 @@
 from flask import Flask
 from werkzeug.debug import DebuggedApplication
 
-from todos.extensions import debug_toolbar
+from todos.extensions import csrf, debug_toolbar, flask_static_digest
 from todos.blueprints.pages import page
 
 
@@ -36,6 +36,8 @@ def extensions(app):
     :param app: Flask application instance
     :return: None
     """
+    csrf.init_app(app)
     debug_toolbar.init_app(app)
+    flask_static_digest.init_app(app)
 
     return None
