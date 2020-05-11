@@ -6,3 +6,5 @@ dist/
 
 assets/node_modules/
 public/*
+
+.coverage

@@ -1,6 +1,6 @@
 from flask import Flask
 from werkzeug.debug import DebuggedApplication
-
+from cli import register_cli_commands
 from todos.extensions import csrf, debug_toolbar, flask_static_digest
 from todos.blueprints.pages import page
 
@@ -25,6 +25,7 @@ def create_app(settings_override=None):
         app.wsgi_app = DebuggedApplication(app.wsgi_app, evalex=True)
 
     app.register_blueprint(page)
+    register_cli_commands(app)
 
     return app
 
