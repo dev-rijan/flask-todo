@@ -1,1 +1,8 @@
+__pycache__/
+
 venv/*
+node_modules/
+dist/
+
+assets/node_modules/
+public/*
