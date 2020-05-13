@@ -1,0 +1,34 @@
+{% extends 'layouts/app.html' %}
+
+{% block title %}Account settings{% endblock %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-md-5">
+      <h2>Settings</h2>
+      <h4 class="text-muted margin-bottom">{{ current_user.email }}</h4>
+
+      <div class="list-group">
+        <a href="{{ url_for('user.update_credentials') }}"
+           class="list-group-item">
+          Update email and password
+        </a>
+        {% if current_user.username %}
+          <span class="list-group-item quarter-faded text-muted">
+            Your username is
+            <strong>{{ current_user.username }}</strong>
+          </span>
+        {% else %}
+          <a href="{{ url_for('user.welcome') }}"
+             class="list-group-item">
+            Pick a username
+          </a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-md-5 col-md-push-1 col-md-offset-1">
+      <h2>Billing</h2>
+      <p>Coming soon...</p>
+    </div>
+  </div>
+{% endblock %}

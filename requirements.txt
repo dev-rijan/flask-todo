@@ -12,6 +12,7 @@ flake8==3.7.9
 # Data
 psycopg2==2.8.5
 Flask-SQLAlchemy==2.4.1
+sqlalchemy-utils==0.36.5
 
 # Forms.
 Flask-WTF==0.14.3

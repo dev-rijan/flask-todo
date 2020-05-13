@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+
+{% block header %}
+  <a href="{{ url_for('page.home') }}">
+    <img src="{{ url_for('static', filename='images/snake-eyes-large.jpg') }}"
+         class="img-responsive center-block md-margin-bottom"
+         width="178" height="176" title="Snake Eyes" alt="Snake Eyes"/>
+  </a>
+{% endblock %}
+
+{% block footer %}
+  <li><a href="{{ url_for('user.signup') }}">Sign up today</a></li>
+{% endblock %}
