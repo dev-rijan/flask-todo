@@ -18,17 +18,46 @@
     <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light mb-5">
-      <div class="container">
-        <a href="{{ url_for('page.home') }}">
-          TODO
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarCollapse"
-                aria-controls="navbarCollapse"
-                aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-5">
+      <a class="navbar-brand" href="#">Todos</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar-collapse"
+        aria-controls="navbar-collapse"
+        aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+
+      <div id="navbar-collapse" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          {% if current_user.is_authenticated %}
+            <li class="nav-item dropdown dropdown-menu-left">
+              <a class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                Account
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ url_for('user.settings') }}">Setting</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ url_for('user.logout') }}">Logout</a>
+              </div>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('user.login') }}">Log in</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('user.signup') }}">Sign up</a>
+            </li>
+          {% endif %}
+        </ul>
       </div>
     </nav>
 
