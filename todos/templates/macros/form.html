@@ -27,6 +27,10 @@
   {{ f(class='form-control shadow-none ' + css_class, **kwargs) }}
 {%- endmacro -%}
 
+{# Render a checkbox field. #}
+{%- macro checkbox_field(f) -%}
+  {{ f(type='checkbox', **kwargs) }} {{ f.label }}
+{%- endmacro -%}
 
 {# Render a form group with errors for various field types. #}
 {%- macro form_group(f, css_class='') -%}
@@ -36,7 +40,7 @@
 
   {% if f.type == 'BooleanField' %}
     <div class="checkbox">
-    {{ checkbox_field(f, css_class, **kwargs) }}
+    {{ checkbox_field(f, **kwargs) }}
   {% else %}
     <div class="form-group">
     {{ field_label(f) }}

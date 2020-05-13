@@ -17,7 +17,7 @@ from todos.extensions import db
 
 class User(UserMixin, ResourceMixin, db.Model):
     ROLE = OrderedDict([
-        ('member', 'Member'),
+        ('user', 'user'),
         ('admin', 'Admin')
     ])
 
@@ -26,20 +26,13 @@ class User(UserMixin, ResourceMixin, db.Model):
 
     # Authentication.
     role = db.Column(db.Enum(*ROLE, name='role_types', native_enum=False),
-                     index=True, nullable=False, server_default='member')
+                     index=True, nullable=False, server_default='user')
     active = db.Column('is_active', db.Boolean(), nullable=False,
                        server_default='1')
     username = db.Column(db.String(24), unique=True, index=True)
     email = db.Column(db.String(255), unique=True, index=True, nullable=False,
                       server_default='')
     password = db.Column(db.String(128), nullable=False, server_default='')
-
-    # Activity tracking.
-    sign_in_count = db.Column(db.Integer, nullable=False, default=0)
-    current_sign_in_on = db.Column(AwareDateTime())
-    current_sign_in_ip = db.Column(db.String(45))
-    last_sign_in_on = db.Column(AwareDateTime())
-    last_sign_in_ip = db.Column(db.String(45))
 
     def __init__(self, **kwargs):
         # Call Flask-SQLAlchemy's constructor.
@@ -108,7 +101,7 @@ class User(UserMixin, ResourceMixin, db.Model):
         reset_token = u.serialize_token()
 
         # This prevents circular imports.
-        from snakeeyes.blueprints.user.tasks import (
+        from todos.blueprints.user.tasks import (
             deliver_password_reset_email)
         deliver_password_reset_email.delay(u.id, reset_token)
 
@@ -169,22 +162,3 @@ class User(UserMixin, ResourceMixin, db.Model):
 
         serializer = TimedJSONWebSignatureSerializer(private_key, expiration)
         return serializer.dumps({'user_email': self.email}).decode('utf-8')
-
-    def update_activity_tracking(self, ip_address):
-        """
-        Update various fields on the user that's related to meta data on their
-        account, such as the sign in count and ip address, etc..
-
-        :param ip_address: IP address
-        :type ip_address: str
-        :return: SQLAlchemy commit results
-        """
-        self.sign_in_count += 1
-
-        self.last_sign_in_on = self.current_sign_in_on
-        self.last_sign_in_ip = self.current_sign_in_ip
-
-        self.current_sign_in_on = datetime.datetime.now(pytz.utc)
-        self.current_sign_in_ip = ip_address
-
-        return self.save()
