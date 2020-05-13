@@ -19,16 +19,12 @@
             <strong>{{ current_user.username }}</strong>
           </span>
         {% else %}
-          <a href="{{ url_for('user.welcome') }}"
+          <a href="{{ url_for('user.update_username') }}"
              class="list-group-item">
             Pick a username
           </a>
         {% endif %}
       </div>
-    </div>
-    <div class="col-md-5 col-md-push-1 col-md-offset-1">
-      <h2>Billing</h2>
-      <p>Coming soon...</p>
     </div>
   </div>
 {% endblock %}

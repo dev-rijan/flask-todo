@@ -19,8 +19,8 @@ from todos.blueprints.user.forms import (
     BeginPasswordResetForm,
     PasswordResetForm,
     SignupForm,
-    WelcomeForm,
-    UpdateCredentials)
+    UpdateCredentials,
+    UpdateUsernameForm)
 
 user = Blueprint('user', __name__, template_folder='templates')
 
@@ -109,19 +109,25 @@ def signup():
 
         if login_user(u):
             flash('Awesome, thanks for signing up!', 'success')
-            return redirect(url_for('user.welcome'))
+            return redirect(url_for('user.update_username'))
 
     return render_template('user/signup.html', form=form)
 
 
-@user.route('/welcome', methods=['GET', 'POST'])
+@user.route('/settings')
 @login_required
-def welcome():
+def settings():
+    return render_template('user/settings.html')
+
+
+@user.route('/settings/update_username', methods=['GET', 'POST'])
+@login_required
+def update_username():
     if current_user.username:
         flash('You already picked a username.', 'warning')
         return redirect(url_for('user.settings'))
 
-    form = WelcomeForm()
+    form = UpdateUsernameForm()
 
     if form.validate_on_submit():
         current_user.username = request.form.get('username')
@@ -130,13 +136,7 @@ def welcome():
         flash('Sign up is complete, enjoy our services.', 'success')
         return redirect(url_for('user.settings'))
 
-    return render_template('user/welcome.html', form=form)
-
-
-@user.route('/settings')
-@login_required
-def settings():
-    return render_template('user/settings.html')
+    return render_template('user/update_username.html', form=form)
 
 
 @user.route('/settings/update_credentials', methods=['GET', 'POST'])

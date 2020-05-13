@@ -37,7 +37,7 @@ class SignupForm(ModelForm):
     password = PasswordField('Password', [DataRequired(), Length(8, 128)])
 
 
-class WelcomeForm(ModelForm):
+class UpdateUsernameForm(ModelForm):
     username_message = 'Letters, numbers and underscores only please.'
 
     username = StringField(validators=[

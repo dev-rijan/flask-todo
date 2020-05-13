@@ -5,41 +5,6 @@
 
 {% block body %}
   <div class="row">
-    <div class="col-md-5">
-      <h2>What are you waiting for?</h2>
-
-      <div class="media md-margin-bottom">
-        <div class="media-left">
-          <i class="fa fa-fw fa-3x fa-bullhorn text-primary"></i>
-        </div>
-        <div class="media-body">
-          <h4 class="media-heading">Place bets</h4>
-          <span class="text-muted">
-            Correctly guess the dice's roll.
-          </span>
-        </div>
-      </div>
-      <div class="media md-margin-bottom">
-        <div class="media-left">
-          <i class="fa fa-fw fa-3x fa-database text-primary"></i>
-        </div>
-        <div class="media-body">
-          <h4 class="media-heading">Win currency</h4>
-          <span class="text-muted">
-            Gain coins if your guess is correct.
-          </span>
-        </div>
-      </div>
-      <div class="media md-margin-bottom">
-        <div class="media-left">
-          <i class="fa fa-fw fa-3x fa-trophy text-primary"></i>
-        </div>
-        <div class="media-body">
-          <h4 class="media-heading">Leaderboard</h4>
-          <span class="text-muted">Compare your results to others.</span>
-        </div>
-      </div>
-    </div>
     <div class="col-md-5 col-md-push-1 col-md-offset-1 well">
       {% call f.form_tag('user.signup') %}
         <legend>Sign up today</legend>

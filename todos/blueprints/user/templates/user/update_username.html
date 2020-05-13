@@ -5,20 +5,8 @@
 
 {% block body %}
   <div class="row">
-    <div class="col-md-5">
-      <h2 class="sm-margin-bottom">Ready to upgrade?</h2>
-
-      <p class="margin-bottom">
-        Hi. You're only about a minute away from being a paid member which
-        provides you many amazing things.
-      </p>
-
-      <p class="small">
-        Coming soon...
-      </p>
-    </div>
     <div class="col-md-5 col-md-push-1 col-md-offset-1 well">
-      {% call f.form_tag('user.welcome') %}
+      {% call f.form_tag('user.update_username') %}
         <legend>Pick a username</legend>
         <p class="small help-block sm-margin-bottom">
           You can only pick this once, make it count.
