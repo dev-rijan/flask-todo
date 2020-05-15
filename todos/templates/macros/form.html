@@ -28,11 +28,11 @@
     <div class="input-group mb-3">
       <input type="text" class="form-control"
              id="q" name="q" value="{{ request.args.get('q', '') }}"
-             placeholder="Search by typing, then press enter...">
+             placeholder="Search by typing ...">
     <div class="input-group-append">
-      <span class="input-group-text">
+      <button class="input-group-text" type="submit">
         <i class="fa fa-fw fa-search"></i>
-      </span>
+      </button>
     </div>
     </div>
   {% endcall %}

@@ -33,44 +33,45 @@
 {# Paginate through a resource. #}
 {% macro paginate(resource) -%}
   {% set args = request.args.to_dict() %}
-
-  <ul class="pagination">
-    <li class="{{ 'disabled' if resource.page == 1 }}">
-      <a href="{{ url_for(request.endpoint, page=1, **args) }}"
+  <nav aria-label="pagination">
+    <ul class="pagination">
+    <li class="page-item {{ 'disabled' if resource.page == 1 }}">
+      <a class="page-link" href="{{ url_for(request.endpoint, page=1, **args) }}"
           aria-label="First">
         &laquo; First
       </a>
     </li>
-    <li class="{{ 'disabled' if not resource.has_prev }}">
-      <a href="{{ url_for(request.endpoint, page=resource.page - 1, **args) }}"
+    <li class="page-item {{ 'disabled' if not resource.has_prev }}">
+      <a class="page-link" href="{{ url_for(request.endpoint, page=resource.page - 1, **args) }}"
           aria-label="Previous">
         Prev
       </a>
     </li>
   {%- for page in resource.iter_pages() %}
-    <li class="{{ 'active' if page and page == resource.page }}">
+    <li class="page-item {{ 'active' if page and page == resource.page }}">
       {% if page %}
         {% if page != resource.page %}
-          <a href="{{ url_for(request.endpoint, page=page, **args) }}">{{ page }}</a>
+          <a class="page-link" href="{{ url_for(request.endpoint, page=page, **args) }}">{{ page }}</a>
         {% else %}
-          <span class="text-muted">{{ page }}</span>
+          <span class="page-link">{{ page }}</span>
         {% endif %}
       {% else %}
         <span class="ellipsis">…</span>
       {% endif %}
     </li>
   {%- endfor %}
-    <li class="{{ 'disabled' if not resource.has_next }}">
-      <a href="{{ url_for(request.endpoint, page=resource.page + 1, **args) }}"
+    <li class="page-item {{ 'disabled' if not resource.has_next }}">
+      <a class="page-link" href="{{ url_for(request.endpoint, page=resource.page + 1, **args) }}"
           aria-label="Next">
         Next
       </a>
     </li>
-    <li class="{{ 'disabled' if resource.page == resource.pages }}">
-      <a href="{{ url_for(request.endpoint, page=resource.pages, **args) }}"
+    <li class="page-item {{ 'disabled' if resource.page == resource.pages }}">
+      <a class="page-link" href="{{ url_for(request.endpoint, page=resource.pages, **args) }}"
           aria-label="Last">
         Last &raquo;
       </a>
     </li>
   </ul>
+  </nav>
 {%- endmacro %}
