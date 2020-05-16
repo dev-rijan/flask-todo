@@ -11,7 +11,7 @@ var bulkSelectors = {
   'selectAll': '#select_all',
   'checkedItems': '.checkbox-item',
   'colheader': '.col-header',
-  'selectedRow': 'warning',
+  'selectedRow': 'table-warning',
   'updateScope': '#scope',
   'bulkActions': '#bulk_actions'
 };
