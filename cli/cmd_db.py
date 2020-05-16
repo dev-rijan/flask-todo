@@ -4,7 +4,6 @@ from flask.cli import with_appcontext
 
 from sqlalchemy_utils import database_exists, create_database
 
-from todos.app import create_app
 from todos.extensions import db as database
 from todos.blueprints.user.models import User
 

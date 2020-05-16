@@ -1,0 +1,7 @@
+{% macro role_icon_for(user) -%}
+  {% if user.role == 'admin' %}
+    <span class="badge badge-success role-admin">Admin</span>
+  {% else %}
+    <span class="badge badge-secondary role-user">User</span>
+  {% endif %}
+{% endmacro %}

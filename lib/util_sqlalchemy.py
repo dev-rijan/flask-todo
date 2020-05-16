@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import DateTime
+from sqlalchemy import DateTime, text
 from sqlalchemy.types import TypeDecorator
 
 from lib.util_datetime import tzware_datetime

@@ -8,3 +8,5 @@ assets/node_modules/
 public/*
 
 .coverage
+
+/assets/yarn-error.log

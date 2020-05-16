@@ -2,6 +2,7 @@ from flask import Flask
 from werkzeug.debug import DebuggedApplication
 from cli import register_cli_commands
 from todos.blueprints.user import user
+from todos.blueprints.admin import admin
 from itsdangerous import URLSafeTimedSerializer
 
 from todos.blueprints.user.models import User
@@ -31,6 +32,7 @@ def create_app(settings_override=None):
 
     app.register_blueprint(page)
     app.register_blueprint(user)
+    app.register_blueprint(admin)
     register_cli_commands(app)
 
     authentication(app, User)
