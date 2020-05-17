@@ -6,7 +6,7 @@ from todos.blueprints.admin import admin
 from itsdangerous import URLSafeTimedSerializer
 
 from todos.blueprints.user.models import User
-from todos.extensions import csrf, debug_toolbar, flask_static_digest, db, login_manager
+from todos.extensions import csrf, debug_toolbar, flask_static_digest, db, login_manager, migrate
 from todos.blueprints.pages import page
 from todos.blueprints.user import user
 
@@ -52,6 +52,7 @@ def extensions(app):
     db.init_app(app)
     flask_static_digest.init_app(app)
     login_manager.init_app(app)
+    migrate.init_app(app=app, db=db)
 
     return None
 
