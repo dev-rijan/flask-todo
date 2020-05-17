@@ -1,4 +1,4 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm as Form
 from wtforms import HiddenField, StringField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Optional, Regexp
 from wtforms_components import EmailField, Email
@@ -6,7 +6,7 @@ from wtforms_components import EmailField, Email
 from lib.util_wtforms import ModelForm
 from todos.blueprints.user.models import User, db
 from todos.blueprints.user.validations import ensure_identity_exists, \
-    ensure_existing_password_matches
+    ensure_existing_password_matches, ensure_unique
 
 
 class LoginForm(Form):
@@ -32,7 +32,8 @@ class PasswordResetForm(Form):
 class SignupForm(ModelForm):
     email = EmailField(validators=[
         DataRequired(),
-        Email()
+        Email(),
+        ensure_unique
     ])
     password = PasswordField('Password', [DataRequired(), Length(8, 128)])
 
@@ -43,7 +44,8 @@ class UpdateUsernameForm(ModelForm):
     username = StringField(validators=[
         DataRequired(),
         Length(1, 16),
-        Regexp('^\w+$', message=username_message)
+        Regexp('^\w+$', message=username_message),
+        ensure_unique
     ])
 
 
@@ -54,6 +56,7 @@ class UpdateCredentials(ModelForm):
                                       ensure_existing_password_matches])
 
     email = EmailField(validators=[
-        Email()
+        Email(),
+        ensure_unique
     ])
     password = PasswordField('Password', [Optional(), Length(8, 128)])

@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import SelectField, StringField, BooleanField
 from wtforms.validators import DataRequired, Length, Optional, Regexp
 
@@ -8,11 +8,11 @@ from lib.util_wtforms import ModelForm, choices_from_dict
 from todos.blueprints.user.models import db, User
 
 
-class SearchForm(Form):
+class SearchForm(FlaskForm):
     q = StringField('Search terms', [Optional(), Length(1, 256)])
 
 
-class BulkDeleteForm(Form):
+class BulkDeleteForm(FlaskForm):
     SCOPE = OrderedDict([
         ('all_selected_items', 'All selected items'),
         ('all_search_results', 'All search results')

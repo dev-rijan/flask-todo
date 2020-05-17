@@ -29,3 +29,23 @@ def ensure_existing_password_matches(form, field):
 
     if not user.authenticated(password=field.data):
         raise ValidationError('Does not match.')
+
+
+def ensure_unique(form, field):
+    """
+    Ensure that given field is unique
+
+
+    :param form: wtforms Instance
+    :param field: Field being passed in
+    :return: None
+    """
+
+    db_field = field.name
+
+    query = {db_field: field.data}
+
+    user = User.query.filter_by(**query).first()
+
+    if user:
+        raise ValidationError(f'{db_field.capitalize()} must be unique')
