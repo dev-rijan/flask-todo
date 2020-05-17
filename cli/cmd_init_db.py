@@ -19,7 +19,7 @@ def db():
 @click.option('--with-testdb/--no-with-testdb', default=False,
               help='Create a test db too?')
 @with_appcontext
-def init(with_testdb):
+def init_db(with_testdb):
     """
     Initialize the database.
 
@@ -69,12 +69,12 @@ def reset(ctx, with_testdb):
     :param with_testdb: Create a test database
     :return: None
     """
-    ctx.invoke(init, with_testdb=with_testdb)
+    ctx.invoke(init_db, with_testdb=with_testdb)
     ctx.invoke(seed)
 
     return None
 
 
-db.add_command(init)
+db.add_command(init_db)
 db.add_command(seed)
 db.add_command(reset)
