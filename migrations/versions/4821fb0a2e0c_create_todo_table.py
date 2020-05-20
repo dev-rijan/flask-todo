@@ -32,6 +32,7 @@ def upgrade():
                               nullable=False),
                     sa.Column('description', sa.Text, nullable=False),
                     sa.Column('todo_at', AwareDateTime(), nullable=False),
+                    sa.Column('is_complete', sa.Boolean(), nullable=False, server_default='1'),
                     sa.Column('created_on', AwareDateTime(), default=tzware_datetime),
                     sa.Column('updated_on', AwareDateTime(), default=tzware_datetime, onupdate=tzware_datetime))
 
