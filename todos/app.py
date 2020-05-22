@@ -9,6 +9,7 @@ from todos.blueprints.user.models import User
 from todos.extensions import csrf, debug_toolbar, flask_static_digest, db, login_manager, migrate
 from todos.blueprints.pages import page
 from todos.blueprints.user import user
+from todos.blueprints.todo import todo
 
 
 def create_app(settings_override=None):
@@ -33,6 +34,8 @@ def create_app(settings_override=None):
     app.register_blueprint(page)
     app.register_blueprint(user)
     app.register_blueprint(admin)
+    app.register_blueprint(todo)
+
     register_cli_commands(app)
 
     authentication(app, User)

@@ -1,6 +1,8 @@
 import 'modules/bootstrap';
 import moment from "moment";
 
+import '../node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4'
+
 var pluralize = function (word, count) {
   if (count === 1) { return word; }
 
@@ -17,6 +19,11 @@ var bulkSelectors = {
 };
 
 $(document).ready(function() {
+
+  $('#todo-at').datetimepicker({
+    format: 'YYYY-MM-DD HH:mm:ss',
+  });
+
   // Date formatting with momentjs.
   $('.from-now').each(function (i, e) {
     (function updateTime() {

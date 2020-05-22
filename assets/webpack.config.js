@@ -72,6 +72,7 @@ module.exports = [
       new CopyWebpackPlugin([{from: __dirname + '/static'}]),
       new MiniCssExtractPlugin({filename: 'css/app.css'}),
       new webpack.ProvidePlugin({$: 'jquery', jQuery: 'jquery'}),
+      new webpack.ProvidePlugin({ moment: "moment" }),
     ]
   })
 ];
