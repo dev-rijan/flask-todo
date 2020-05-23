@@ -1,8 +1,11 @@
-from wtforms import TextAreaField, DateTimeField
-from wtforms.validators import DataRequired, Length
+from flask_wtf import FlaskForm
+from wtforms import TextAreaField, DateTimeField, StringField
+from wtforms.validators import DataRequired, Length, Optional
 
 from lib.util_wtforms import ModelForm
 
+class SearchForm(FlaskForm):
+    q = StringField('Search terms', [Optional(), Length(1, 256)])
 
 class TodoForm(ModelForm):
     description = TextAreaField('Description', validators=[

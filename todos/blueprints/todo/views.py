@@ -1,21 +1,48 @@
 import pytz
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
+from sqlalchemy import text
 
-from todos.blueprints.todo.forms import TodoForm
+from todos.blueprints.todo.forms import TodoForm, SearchForm
 from todos.blueprints.todo.models import Todo
 
 todo = Blueprint('todo', __name__, template_folder='templates')
 
 
-@todo.route('/todos', methods=['GET', 'POST'])
+@todo.before_request
 @login_required
-def todos():
+def before_request():
+    """ Protect all of the todo endpoints. """
     pass
 
 
+@todo.route('/todos', defaults={'page': 1})
+@todo.route('/todos/page/<int:page>')
+def list(page):
+    search_form = SearchForm()
+
+    sort_by = Todo.sort_by(request.args.get('sort', 'created_on'),
+                           request.args.get('direction', 'desc'))
+
+    order_values = '{0} {1}'.format(sort_by[0], sort_by[1])
+
+    search_query = request.args.get('q', '')
+
+    paginate_todos_query = Todo.query
+
+    if search_query:
+        paginate_todos_query = paginate_todos_query.filter(Todo.search(search_query))
+
+    paginated_todos = paginate_todos_query \
+        .order_by(text(order_values)) \
+        .paginate(page, 20, True)
+
+    return render_template('todo/index.html',
+                           form=search_form,
+                           todos=paginated_todos)
+
+
 @todo.route('/todo/create', methods=['GET', 'POST'])
-@login_required
 def create():
     todo = Todo()
 
@@ -33,6 +60,6 @@ def create():
 
         flash('Todo been created successfully.', 'success')
 
-        return redirect(url_for('admin.users'))
+        return redirect(url_for('admin.todos'))
 
     return render_template('todo/create.html', form=form)

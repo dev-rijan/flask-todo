@@ -15,6 +15,7 @@ var bulkSelectors = {
   'colheader': '.col-header',
   'selectedRow': 'table-warning',
   'updateScope': '#scope',
+  'itemCount': '#item-count',
   'bulkActions': '#bulk_actions'
 };
 
@@ -63,6 +64,7 @@ $(document).ready(function() {
     }
 
     $(bulkSelectors.updateScope + ' option:first').text(scopeOptionText);
+    $(bulkSelectors.itemCount).text(scopeOptionText);
   });
 
   $('body').on('change', bulkSelectors.selectAll, function () {
