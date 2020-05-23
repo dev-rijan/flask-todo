@@ -73,6 +73,8 @@ def update(id):
     if form.validate_on_submit():
         form.populate_obj(todo)
 
+        todo.todo_at = todo.todo_at.replace(tzinfo=pytz.UTC)
+
         todo.save()
 
         flash('Todo has been saved successfully.', 'success')

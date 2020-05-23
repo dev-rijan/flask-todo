@@ -4,6 +4,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const path = require('path');
 
 var common = {
   watchOptions: {
@@ -14,7 +15,12 @@ var common = {
       {
         test: /\.js$/,
         exclude: [/node_modules/],
-        loader: 'babel-loader'
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
       },
       {
         test: [/\.scss$/, /\.css$/],
@@ -56,20 +62,20 @@ module.exports = [
   merge(common, {
     entry: [
       __dirname + '/app/app.scss',
-      __dirname + '/app/app.js'
+      path.resolve(__dirname + '/app/app.js')
     ],
     output: {
-      path: __dirname + '/../public',
+      path: path.resolve(__dirname + '/../public'),
       filename: 'js/app.js'
     },
     resolve: {
       modules: [
-        '/node_modules',
-        __dirname + '/app'
+        path.resolve(__dirname + '/node_modules'),
+        path.resolve(__dirname + '/app')
       ]
     },
     plugins: [
-      new CopyWebpackPlugin([{from: __dirname + '/static'}]),
+      new CopyWebpackPlugin([{from: path.resolve(__dirname + '/static')}]),
       new MiniCssExtractPlugin({filename: 'css/app.css'}),
       new webpack.ProvidePlugin({$: 'jquery', jQuery: 'jquery'}),
       new webpack.ProvidePlugin({ moment: "moment" }),
