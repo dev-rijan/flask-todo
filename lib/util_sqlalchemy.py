@@ -53,12 +53,10 @@ class ResourceMixin(object):
         return field, direction
 
     @classmethod
-    def get_bulk_action_ids(cls, scope, ids, omit_ids=[], query=''):
+    def get_bulk_action_ids(cls, ids, omit_ids=[]):
         """
         Determine which IDs are to be modified.
 
-        :param scope: Affect all or only a subset of items
-        :type scope: str
         :param ids: List of ids to be modified
         :type ids: list
         :param omit_ids: Remove 1 or more IDs from the list
@@ -68,13 +66,6 @@ class ResourceMixin(object):
         :return: list
         """
         omit_ids = map(str, omit_ids)
-
-        if scope == 'all_search_results':
-            # Change the scope to go from selected ids to all search results.
-            ids = cls.query.with_entities(cls.id).filter(cls.search(query))
-
-            # SQLAlchemy returns back a list of tuples, we want a list of strs.
-            ids = [str(item[0]) for item in ids]
 
         # Remove 1 or more items from the list, this could be useful in spots
         # where you may want to protect the current user from deleting themself

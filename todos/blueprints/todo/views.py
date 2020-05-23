@@ -63,3 +63,45 @@ def create():
         return redirect(url_for('admin.todos'))
 
     return render_template('todo/create.html', form=form)
+
+
+@todo.route('/todo/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    todo = Todo.query.get(id)
+    form = TodoForm(obj=todo)
+
+    if form.validate_on_submit():
+        form.populate_obj(todo)
+
+        todo.save()
+
+        flash('Todo has been saved successfully.', 'success')
+        return redirect(url_for('todo.list'))
+
+    return render_template('todo/update.html', form=form, todo=todo)
+
+
+@todo.route('/todo/complete/<int:id>', methods=['GET'])
+def complete(id):
+    todo = Todo.query.get(id)
+
+    todo.is_complete = True
+    todo.save()
+
+    flash('Todo has been completed successfully.', 'success')
+    return redirect(url_for('todo.list'))
+
+
+@todo.route('/todos/bulk_delete', methods=['POST'])
+def bulk_delete():
+    ids = Todo.get_bulk_action_ids(request.form.getlist('bulk_ids'))
+
+    if len(ids):
+        delete_count = Todo.bulk_delete(ids)
+
+        flash('{0} todo(s) were scheduled to be deleted.'.format(delete_count),
+              'success')
+    else:
+        flash('No todos were deleted, something went wrong.', 'error')
+
+    return redirect(url_for('todo.list'))

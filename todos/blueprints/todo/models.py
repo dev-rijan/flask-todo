@@ -16,3 +16,18 @@ class Todo(ResourceMixin, db.Model):
     description = db.Column('description', db.Text, nullable=False)
     todo_at = db.Column('todo_at', AwareDateTime(), nullable=False)
     is_complete = db.Column('is_complete', db.Boolean(), nullable=False, server_default='0')
+
+    @classmethod
+    def bulk_complete(cls, ids):
+        """
+        Update 1 or more model instances.
+
+        :param ids: List of ids to be updated
+        :type ids: list
+        :return: Number of updated instances
+        """
+        update_count = cls.query.filter(cls.id.in_(ids)).update(
+            {cls.is_complete: True})
+        db.session.commit()
+
+        return update_count
