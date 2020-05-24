@@ -5,6 +5,7 @@ from sqlalchemy import text
 
 from todos.blueprints.todo.forms import TodoForm, SearchForm
 from todos.blueprints.todo.models import Todo
+from todos.blueprints.user.models import User
 
 todo = Blueprint('todo', __name__, template_folder='templates')
 
@@ -34,7 +35,7 @@ def list(page):
         paginate_todos_query = paginate_todos_query.filter_by(user_id=current_user.id)
 
     if search_query:
-        paginate_todos_query = paginate_todos_query.filter(Todo.search(search_query))
+        paginate_todos_query = paginate_todos_query.filter(Todo.search_by_user(search_query))
 
     paginated_todos = paginate_todos_query \
         .order_by(text(order_values)) \

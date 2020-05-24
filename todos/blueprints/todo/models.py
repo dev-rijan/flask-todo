@@ -1,3 +1,5 @@
+from sqlalchemy import or_
+
 from lib.util_sqlalchemy import ResourceMixin, AwareDateTime
 from todos.blueprints.user.models import User
 from todos.extensions import db
@@ -34,3 +36,21 @@ class Todo(ResourceMixin, db.Model):
         db.session.commit()
 
         return update_count
+
+    @classmethod
+    def search_by_user(cls, query):
+        """
+        Search a resource by 1 or more fields.
+
+        :param query: Search query
+        :type query: str
+        :return: SQLAlchemy filter
+        """
+        if not query:
+            return ''
+
+        search_query = '%{0}%'.format(query)
+        search_chain = (User.email.ilike(search_query),
+                        User.username.ilike(search_query))
+
+        return Todo.user.has(or_(*search_chain))
