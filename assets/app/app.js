@@ -1,7 +1,6 @@
-import 'modules/bootstrap';
-import moment from "moment";
-
-import flatpickr from 'flatpickr'
+import 'modules/js/bootstrap';
+import moment from 'moment';
+import flatpickr from 'flatpickr';
 
 var pluralize = function (word, count) {
   if (count === 1) { return word; }
@@ -20,7 +19,6 @@ var bulkSelectors = {
 };
 
 $(document).ready(function() {
-
   flatpickr('#todo_at', {
     dateFormat: 'Y-m-d H:i:S',
     enableTime: true

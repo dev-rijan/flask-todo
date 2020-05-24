@@ -48,8 +48,10 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
 //@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+@import '~flatpickr/dist/flatpickr.min.css';
 
-@import "~flatpickr/dist/flatpickr.min.css";
+@import 'modules/scss/table';
+@import 'modules/scss/users';
 
 /* Layout
 ------------------------------------------------ */
@@ -68,40 +70,4 @@ body {
   padding: 0.5rem 1rem;
   background-color: #f5f5f5;
   text-align: center;
-}
-
-/* Admin dashboard
--------------------------------------------------- */
-#bulk_actions {
-  display: none;
-  padding-bottom: 8px;
-}
-
-#scope {
-  margin-bottom: 0;
-  width: 160px;
-  height: 29px;
-  font-weight: 400;
-  font-size: 12px;
-}
-
-.sort:after {
-  content: '\f0dc';
-  font-family: Font Awesome\ 5 Free;
-  margin-left: 6px;
-  color: #BBB;
-}
-
-.asc:after {
-  content: '\f0dd';
-  font-family: Font Awesome\ 5 Free;
-  margin-left: 6px;
-  color: #444;
-}
-
-.desc:after {
-  content: '\f0de';
-  font-family: Font Awesome\ 5 Free;
-  margin-left: 6px;
-  color: #444;
 }
