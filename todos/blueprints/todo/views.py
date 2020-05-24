@@ -29,21 +29,21 @@ def list(page):
 
     search_query = request.args.get('q', '')
 
-    paginate_todos_query = Todo.query
+    todo_query = Todo.query
 
     if current_user.role == 'user':
-        paginate_todos_query = paginate_todos_query.filter_by(user_id=current_user.id)
+        todo_query = todo_query.filter_by(user_id=current_user.id)
 
     if search_query:
-        paginate_todos_query = paginate_todos_query.filter(Todo.search_by_user(search_query))
+        todo_query = todo_query.filter(Todo.search_by_user(search_query))
 
-    paginated_todos = paginate_todos_query \
+    todos = todo_query \
         .order_by(text(order_values)) \
         .paginate(page, 20, True)
 
     return render_template('todo/index.html',
                            form=search_form,
-                           todos=paginated_todos)
+                           todos=todos)
 
 
 @todo.route('/todo/create', methods=['GET', 'POST'])
