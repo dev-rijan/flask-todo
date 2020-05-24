@@ -6,7 +6,7 @@ APP_ROOT = os.path.join(os.path.dirname(__file__), '..')
 env_path = os.path.join(APP_ROOT, '.env')
 load_dotenv(env_path)
 
-DEBUG = os.getenv('DEBUG', False)
+DEBUG = os.getenv('DEBUG', True)
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'secrect_key')
 SERVER_NAME = os.getenv('SERVER_NAME', 'localhost:8000')
