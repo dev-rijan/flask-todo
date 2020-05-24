@@ -47,5 +47,8 @@ def ensure_unique(form, field):
 
     user = User.query.filter_by(**query).first()
 
-    if user:
+    if not user:
+        return True
+
+    if not form._obj or user.id != form._obj.id:
         raise ValidationError(f'{db_field.capitalize()} must be unique')
