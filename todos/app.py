@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from werkzeug.debug import DebuggedApplication
 from cli import register_cli_commands
