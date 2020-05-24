@@ -1,6 +1,8 @@
 import 'modules/bootstrap';
 import moment from "moment";
 
+import flatpickr from 'flatpickr'
+
 var pluralize = function (word, count) {
   if (count === 1) { return word; }
 
@@ -13,10 +15,17 @@ var bulkSelectors = {
   'colheader': '.col-header',
   'selectedRow': 'table-warning',
   'updateScope': '#scope',
+  'itemCount': '#item-count',
   'bulkActions': '#bulk_actions'
 };
 
 $(document).ready(function() {
+
+  flatpickr('#todo_at', {
+    dateFormat: 'Y-m-d H:i:S',
+    enableTime: true
+  })
+
   // Date formatting with momentjs.
   $('.from-now').each(function (i, e) {
     (function updateTime() {
@@ -56,6 +65,7 @@ $(document).ready(function() {
     }
 
     $(bulkSelectors.updateScope + ' option:first').text(scopeOptionText);
+    $(bulkSelectors.itemCount).text(scopeOptionText);
   });
 
   $('body').on('change', bulkSelectors.selectAll, function () {

@@ -1,0 +1,45 @@
+{% import 'macros/form.html' as f with context %}
+
+{% if request.endpoint.endswith('create') %}
+  {% set endpoint = 'todo.create' %}
+  {% set form_kwargs = {} %}
+  {% set legend = 'Add a new todo' %}
+  {% set button = 'Add' %}
+{% else %}
+  {% set endpoint = 'todo.update' %}
+  {% set form_kwargs = {'id': todo.id} %}
+  {% set legend = 'Update this todo' %}
+  {% set button = 'Save' %}
+{% endif %}
+
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    {% call f.form_tag(endpoint, **form_kwargs) %}
+      <legend>{{ legend }}</legend>
+
+      {% call f.form_group(form.description, css_class='sm-margin-bottom',
+                            autofocus='autofocus') %}
+      {% endcall %}
+
+      <div class="dt relative">
+        {% call f.form_group(form.todo_at,
+                              css_class='sm-margin-bottom datetimepicker-input') %}
+        {% endcall %}
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary btn-block">
+            {{ button }}
+          </button>
+        </div>
+        <div class="col-md-6">
+          <a href="{{ url_for('todo.list') }}"
+              class="btn btn-default btn-block">
+            Cancel
+          </a>
+        </div>
+      </div>
+    {% endcall %}
+  </div>
+</div>
