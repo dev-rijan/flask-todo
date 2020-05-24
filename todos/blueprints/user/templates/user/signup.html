@@ -5,10 +5,12 @@
 
 {% block body %}
   <div class="row">
-    <div class="col-md-5 col-md-push-1 col-md-offset-1 well">
-      {% call f.form_tag('user.signup') %}
+    <div class="col-md-4 offset-md-4">
+      <div class="title mb-3">
         <legend>Sign up today</legend>
+      </div>
 
+      {% call f.form_tag('user.signup') %}
         {% call f.form_group(form.email, css_class='sm-margin-bottom',
                              autofocus='autofocus',
                              placeholder='Email address') %}
