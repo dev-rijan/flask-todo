@@ -13,7 +13,7 @@
 {% endif %}
 
 <div class="row">
-  <div class="col-md-5 well">
+  <div class="col-md-4 offset-md-4">
     {% call f.form_tag(endpoint, **form_kwargs) %}
       <legend>{{ legend }}</legend>
       <div class="form-group">
@@ -41,8 +41,7 @@
       {% call f.form_group(form.active) %}
       {% endcall %}
 
-      <hr/>
-      <div class="row">
+      <div class="row mt-4">
         <div class="col-md-6">
           <button type="submit" class="btn btn-primary btn-block">
             {{ button }}
