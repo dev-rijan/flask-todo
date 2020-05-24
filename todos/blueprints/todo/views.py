@@ -30,6 +30,9 @@ def list(page):
 
     paginate_todos_query = Todo.query
 
+    if current_user.role == 'user':
+        paginate_todos_query = paginate_todos_query.filter_by(user_id=current_user.id)
+
     if search_query:
         paginate_todos_query = paginate_todos_query.filter(Todo.search(search_query))
 
