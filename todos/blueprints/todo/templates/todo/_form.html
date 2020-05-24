@@ -13,7 +13,7 @@
 {% endif %}
 
 <div class="row">
-  <div class="col-md-5 well">
+  <div class="col-md-4 offset-md-4">
     {% call f.form_tag(endpoint, **form_kwargs) %}
       <legend>{{ legend }}</legend>
 
@@ -27,14 +27,6 @@
         {% endcall %}
       </div>
 
-{#      <div class="form-group">#}
-{#        <input type="text" class="form-control datetimepicker-input" id="datetimepicker1" data-toggle="datetimepicker" data-target="#datetimepicker1"/>#}
-{#      </div>#}
-
-{#      {% call f.form_group(form.active) %}#}
-{#      {% endcall %}#}
-
-      <hr/>
       <div class="row">
         <div class="col-md-6">
           <button type="submit" class="btn btn-primary btn-block">
@@ -42,11 +34,10 @@
           </button>
         </div>
         <div class="col-md-6">
-          <div class="visible-xs visible-sm sm-margin-top"></div>
-{#          <a href="{{ url_for('admin.users') }}"#}
-{#              class="btn btn-default btn-block">#}
-{#            Cancel#}
-{#          </a>#}
+          <a href="{{ url_for('todo.list') }}"
+              class="btn btn-default btn-block">
+            Cancel
+          </a>
         </div>
       </div>
     {% endcall %}
