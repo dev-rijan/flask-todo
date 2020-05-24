@@ -1,6 +1,6 @@
 from lib.flask_mailplus import send_template_message
-from snakeeyes.app import create_celery_app
-from snakeeyes.blueprints.user.models import User
+from todos.app import create_celery_app
+from todos.blueprints.user.models import User
 
 celery = create_celery_app()
 
