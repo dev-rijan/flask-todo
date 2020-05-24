@@ -19,12 +19,12 @@
   </head>
   <body>
     {% include 'layouts/header.html' with context %}
-    <main class="container mb-5">
+    <main class="container mt-5">
       {{ flash.render() }}
       {% block body %}{% endblock %}
     </main>
 
-    <footer class="footer fixed-bottom text-center">
+    <footer class="footer text-center">
       <div class="container">
         <ul class="list-inline">
           <li class="list-inline-item text-muted">Todo app &copy; 2020</li>
