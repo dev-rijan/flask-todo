@@ -9,12 +9,11 @@ load_dotenv(env_path)
 DEBUG = True
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'secrect_key')
-SERVER_NAME = 'localhost:8000'
+SERVER_NAME = os.getenv('SERVER_NAME', 'localhost:8000')
 
 # SQLAlchemy.
-db_uri = 'postgresql://admin:admin@localhost:5432/todos'
-SQLALCHEMY_DATABASE_URI = db_uri
+SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI', '')
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-SEED_ADMIN_EMAIL = "rijan@test.test"
-SEED_ADMIN_PASSWORD = "admin45678"
+SEED_ADMIN_EMAIL = os.getenv('SEED_ADMIN_EMAIL')
+SEED_ADMIN_PASSWORD = os.getenv('SEED_ADMIN_PASSWORD')
