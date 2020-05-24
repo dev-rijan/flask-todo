@@ -37,11 +37,11 @@
             </th>
             <th id="bulk_actions" colspan="4">
               <div class="form-inline">
-                {{ f.field(bulk_form.scope, inline=True) }}
-                  <button type="submit"
-                          class="btn btn-danger btn-sm">
-                    Delete items
-                  </button>
+                <span class="item-count mr-3" id="item-count"></span>
+                <button type="submit"
+                        class="btn btn-danger btn-sm">
+                  Delete items
+                </button>
               </div>
             </th>
           </tr>

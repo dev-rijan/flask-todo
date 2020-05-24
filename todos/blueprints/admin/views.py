@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from flask import (
     Blueprint,
     redirect,
@@ -14,7 +12,6 @@ from todos.blueprints.user.decorators import role_required
 from todos.blueprints.user.models import User
 from todos.blueprints.admin.forms import (
     SearchForm,
-    BulkDeleteForm,
     UserForm
 )
 
@@ -35,7 +32,6 @@ def before_request():
 @admin.route('/users/page/<int:page>')
 def users(page):
     search_form = SearchForm()
-    bulk_form = BulkDeleteForm()
 
     sort_by = User.sort_by(request.args.get('sort', 'created_on'),
                            request.args.get('direction', 'desc'))
@@ -53,7 +49,7 @@ def users(page):
         .paginate(page, 20, True)
 
     return render_template('admin/user/index.html',
-                           form=search_form, bulk_form=bulk_form,
+                           form=search_form,
                            users=paginated_users)
 
 
@@ -84,14 +80,10 @@ def users_edit(id):
 
 @admin.route('/users/bulk_delete', methods=['POST'])
 def users_bulk_delete():
-    form = BulkDeleteForm()
+    ids = User.get_bulk_action_ids(request.form.getlist('bulk_ids'),
+                                   omit_ids=[current_user.id])
 
-    if form.validate_on_submit():
-        ids = User.get_bulk_action_ids(request.form.get('scope'),
-                                       request.form.getlist('bulk_ids'),
-                                       omit_ids=[current_user.id],
-                                       query=request.args.get('q', ''))
-
+    if len(ids):
         delete_count = User.bulk_delete(ids)
 
         flash('{0} user(s) were scheduled to be deleted.'.format(delete_count),
