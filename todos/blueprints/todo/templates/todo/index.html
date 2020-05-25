@@ -1,6 +1,7 @@
 {% extends 'layouts/app.html' %}
 {% import 'macros/items.html' as items %}
 {% import 'macros/form.html' as f with context %}
+{% import 'macros/todo.html' as helpers %}
 
 {% block title %}Todo / List{% endblock %}
 
@@ -25,28 +26,31 @@
     {% endif %}
   {% else %}
     {% call f.form_tag('todo.bulk_delete') %}
-      <table class="table table-striped">
+      <table class="table table-striped todo-table">
         <thead>
           <tr>
-            <th>
+            <th class="checkbox">
               <label for="select_all"></label>
               <input id="select_all" name="select_all" type="checkbox">
             </th>
-            <th class="col-header">
+            <th class="col-header description">
               {{ items.sort('description', 'Description') }}
             </th>
-            <th class="col-header">
+            <th class="col-header todo-at">
               {{ items.sort('todo_at', 'Todo at') }}
             </th>
             {% if current_user.role == 'admin' %}
-              <th class="col-header">
+              <th class="col-header user">
                 {{ items.sort('user', 'User') }}
               </th>
             {% endif %}
-            <th class="col-header text-center">
+            <th class="col-header text-center completed">
+              {{ items.sort('is_completed', 'Completed') }}
+            </th>
+            <th class="col-header text-center actions">
               <i class="fa fa-cog"></i>
             </th>
-            <th id="bulk_actions" colspan="4">
+            <th id="bulk_actions" colspan="5">
               <div class="form-inline">
                 <span class="item-count mr-3" id="item-count"></span>
                 <button type="submit"
@@ -60,26 +64,29 @@
         <tbody>
         {% for todo in todos.items %}
           <tr>
-            <td>
+            <td class="checkbox">
               <label for="bulk_ids"></label>
               <input class="checkbox-item" id="bulk_ids" name="bulk_ids"
                      type="checkbox" value="{{ todo.id }}">
             </td>
-            <td>
+            <td class="description">
              {{ todo.description }}
             </td>
-            <td>
+            <td class="todo-at">
               <time class="from-now"
                     data-datetime="{{ todo.todo_at }}">
                 {{ todo.todo_at }}
               </time>
             </td>
             {% if current_user.role == 'admin' %}
-              <td>
-                {{ todo.user.username }}
+              <td class="user">
+                {{ todo.user.username + '(' + todo.user.email + ')' }}
               </td>
             {% endif %}
-            <td class="text-center">
+            <td class="completed text-center">
+              {{ helpers.icon_for_completed(todo) }}
+            </td>
+            <td class="actions text-center">
               <button type="button"
                       class="btn btn-link dropdown-toggle"
                       data-toggle="dropdown"

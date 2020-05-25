@@ -1,0 +1,19 @@
+.todo-table {
+  th, td {
+        &.checkbox {
+          width: 4rem;
+        }
+        &.todo-at {
+          width: 7rem;
+        }
+        &.user {
+          width: 10rem;
+        }
+        &.completed {
+          width: 4rem;
+        }
+        &.actions {
+          width: 4rem;
+        }
+      }
+}
