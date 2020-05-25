@@ -13,15 +13,15 @@
 
   <div id="navbar-collapse" class="collapse navbar-collapse">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
+      {% if current_user.is_authenticated %}
+        <li class="nav-item">
         <a class="nav-link" href="{{ url_for('todo.list') }}">Todos</a>
       </li>
-      {% if current_user.role == 'admin' %}
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('admin.users') }}">Users</a>
-        </li>
-      {% endif %}
-      {% if current_user.is_authenticated %}
+        {% if current_user.role == 'admin' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('admin.users') }}">Users</a>
+          </li>
+        {% endif %}
         <li class="nav-item dropdown dropdown-menu-left">
           <a class="nav-link dropdown-toggle"
             href="#"
