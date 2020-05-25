@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand" href="#">Todos</a>
+    <a class="navbar-brand" href="#">LOGO</a>
   <button
     class="navbar-toggler"
     type="button"
@@ -13,6 +13,9 @@
 
   <div id="navbar-collapse" class="collapse navbar-collapse">
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('todo.list') }}">Todos</a>
+      </li>
       {% if current_user.role == 'admin' %}
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('admin.users') }}">Users</a>
