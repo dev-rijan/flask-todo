@@ -17,7 +17,7 @@ class Todo(ResourceMixin, db.Model):
                         index=True,
                         nullable=False)
     description = db.Column('description', db.Text, nullable=False)
-    todo_at = db.Column('todo_at', AwareDateTime(), nullable=False)
+    todo_at = db.Column('todo_at', AwareDateTime(), index=True, nullable=False)
     is_complete = db.Column('is_complete', db.Boolean(), nullable=False, server_default='0')
 
     user = db.relationship(User, backref='todo')

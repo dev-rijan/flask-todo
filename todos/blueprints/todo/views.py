@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytz
 from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
@@ -57,7 +59,7 @@ def create():
         if not todo.user_id:
             todo.user_id = current_user.id
 
-        todo.todo_at = todo.todo_at.replace(tzinfo=pytz.UTC)
+        todo.todo_at = todo.todo_at.astimezone(tz=pytz.utc)
 
         todo.save()
 
