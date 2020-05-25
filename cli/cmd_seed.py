@@ -94,13 +94,8 @@ def users():
 
         email = random_emails.pop()
 
-        random_percent = random.random()
-
-        if random_percent >= 0.5:
-            random_trail = str(int(round((random.random() * 1000))))
-            username = fake.first_name() + random_trail
-        else:
-            username = None
+        random_trail = str(int(round((random.random() * 1000))))
+        username = fake.first_name() + random_trail
 
         fake_datetime = fake.date_time_between(
             start_date='-1y', end_date='now').strftime('%s')
