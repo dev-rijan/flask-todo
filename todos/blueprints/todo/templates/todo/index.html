@@ -48,11 +48,11 @@
             </th>
             <th id="bulk_actions" colspan="4">
               <div class="form-inline">
-                  <span class="item-count mr-3" id="item-count"></span>
-                  <button type="submit"
-                          class="btn btn-danger btn-sm">
-                    Delete items
-                  </button>
+                <span class="item-count mr-3" id="item-count"></span>
+                <button type="submit"
+                        class="btn btn-danger btn-sm">
+                  Delete items
+                </button>
               </div>
             </th>
           </tr>
@@ -98,19 +98,6 @@
                 </a>
               </div>
             </td>
-{#            <td>#}
-{#              <a href="{{ url_for('admin.users_edit', id=user.id) }}">#}
-{#                <span class="mr-1 username">#}
-{#                  {{ user.username }}#}
-{#                </span>#}
-{#              </a>#}
-{#              {{ account.role_icon_for(user) }}#}
-{#            </td>#}
-{#            <td>#}
-{#              <a href="{{ url_for('admin.users_edit', id=user.id) }}">#}
-{#                <span class="email">{{ user.email }}</span>#}
-{#              </a>#}
-{#            </td>#}
           </tr>
         {% endfor %}
         </tbody>
