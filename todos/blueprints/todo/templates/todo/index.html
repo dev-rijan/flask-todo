@@ -21,7 +21,7 @@
     {% if request.args.get('q') %}
       <p>Try limiting or removing your search terms.</p>
     {% else %}
-      <p>There are no users present,
+      <p>There are no todos present,
          you should <a href="{{ url_for('todo.create') }}">Create</a>.</p>
     {% endif %}
   {% else %}
@@ -80,7 +80,11 @@
             </td>
             {% if current_user.role == 'admin' %}
               <td class="user">
-                {{ todo.user.username + '(' + todo.user.email + ')' }}
+                {% if todo.user.username %}
+                  {{ todo.user.username + '(' + todo.user.email + ')' }}
+                {% else %}
+                  {{ todo.user.email }}
+                {% endif %}
               </td>
             {% endif %}
             <td class="completed text-center">
