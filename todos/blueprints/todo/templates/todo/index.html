@@ -5,6 +5,13 @@
 {% block title %}Todo / List{% endblock %}
 
 {% block body %}
+  <div class="title">
+    <h1>Todo list</h1>
+    <a class="btn btn-outline-primary" href="{{ url_for('todo.create') }}">
+      <i class="fa fa-plus mr-1"></i>
+      Create todo
+    </a>
+  </div>
   {{ f.search('todo.list') }}
 
   {% if todos.total == 0 %}

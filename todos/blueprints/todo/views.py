@@ -5,7 +5,6 @@ from sqlalchemy import text
 
 from todos.blueprints.todo.forms import TodoForm, SearchForm
 from todos.blueprints.todo.models import Todo
-from todos.blueprints.user.models import User
 
 todo = Blueprint('todo', __name__, template_folder='templates')
 
@@ -64,7 +63,7 @@ def create():
 
         flash('Todo been created successfully.', 'success')
 
-        return redirect(url_for('admin.todos'))
+        return redirect(url_for('todo.list'))
 
     return render_template('todo/create.html', form=form)
 
