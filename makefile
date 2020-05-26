@@ -4,5 +4,5 @@ run:
 
 install:
 	@printf "\033[0;32m>>> Installing dependencies\033[0m\n"
-	pip3 install -r requirements.txt
+	pipenv install && cd assets && yarn install && yarn run build && cd .. && pipenv run flask digest compile
 
