@@ -1,0 +1,60 @@
+{% import 'macros/form.html' as f with context %}
+
+{% if request.endpoint.endswith('new') %}
+  {% set endpoint = 'admin.users_new' %}
+  {% set form_kwargs = {} %}
+  {% set legend = 'Add a new user' %}
+  {% set button = 'Add' %}
+{% else %}
+  {% set endpoint = 'admin.users_edit' %}
+  {% set form_kwargs = {'id': user.id} %}
+  {% set legend = 'Update this user' %}
+  {% set button = 'Save' %}
+{% endif %}
+
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    {% call f.form_tag(endpoint, **form_kwargs) %}
+      <legend>{{ legend }}</legend>
+      <div class="form-group">
+        <label class="control-label"><strong>Registered</strong></label>
+        <p class="sm-margin-bottom form-control-static">
+          <time class="from-now" data-datetime="{{ user.created_on }}">
+            {{ user.created_on }}
+          </time>
+        </p>
+      </div>
+      <div class="form-group">
+        <label class="control-label"><strong>E-mail address</strong></label>
+        <p class="sm-margin-bottom form-control-static">
+          {{ user.email }}
+        </p>
+      </div>
+
+      {% call f.form_group(form.username, css_class='sm-margin-bottom',
+                            autofocus='autofocus') %}
+      {% endcall %}
+
+      {% call f.form_group(form.role, css_class='sm-margin-bottom') %}
+      {% endcall %}
+
+      {% call f.form_group(form.active) %}
+      {% endcall %}
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary btn-block">
+            {{ button }}
+          </button>
+        </div>
+        <div class="col-md-6">
+          <div class="visible-xs visible-sm sm-margin-top"></div>
+          <a href="{{ url_for('admin.users') }}"
+              class="btn btn-default btn-block">
+            Cancel
+          </a>
+        </div>
+      </div>
+    {% endcall %}
+  </div>
+</div>

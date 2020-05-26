@@ -1,0 +1,7 @@
+{% macro icon_for_completed(todo) -%}
+  {% if todo.is_complete %}
+    <i class="fa fa-check text-success"></i>
+  {% else %}
+    <i class="fa fa-times text-warning"></i>
+  {% endif %}
+{% endmacro %}

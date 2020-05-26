@@ -1,0 +1,120 @@
+{% extends 'layouts/app.html' %}
+{% import 'macros/items.html' as items %}
+{% import 'macros/form.html' as f with context %}
+{% import 'macros/todo.html' as helpers %}
+
+{% block title %}Todo / List{% endblock %}
+
+{% block body %}
+  <div class="title">
+    <h1>Todo list</h1>
+    <a class="btn btn-outline-primary" href="{{ url_for('todo.create') }}">
+      <i class="fa fa-plus mr-1"></i>
+      Create todo
+    </a>
+  </div>
+  {{ f.search('todo.list') }}
+
+  {% if todos.total == 0 %}
+    <h3>No results found</h3>
+
+    {% if request.args.get('q') %}
+      <p>Try limiting or removing your search terms.</p>
+    {% else %}
+      <p>There are no todos present,
+         you should <a href="{{ url_for('todo.create') }}">Create</a>.</p>
+    {% endif %}
+  {% else %}
+    {% call f.form_tag('todo.bulk_delete') %}
+      <table class="table table-striped todo-table">
+        <thead>
+          <tr>
+            <th class="checkbox">
+              <label for="select_all"></label>
+              <input id="select_all" name="select_all" type="checkbox">
+            </th>
+            <th class="col-header description">
+              {{ items.sort('description', 'Description') }}
+            </th>
+            <th class="col-header todo-at">
+              {{ items.sort('todo_at', 'Todo at') }}
+            </th>
+            {% if current_user.role == 'admin' %}
+              <th class="col-header user">
+                {{ items.sort('user', 'User') }}
+              </th>
+            {% endif %}
+            <th class="col-header text-center completed">
+              {{ items.sort('is_completed', 'Completed') }}
+            </th>
+            <th class="col-header text-center actions">
+              <i class="fa fa-cog"></i>
+            </th>
+            <th id="bulk_actions" colspan="5">
+              <div class="form-inline">
+                <span class="item-count mr-3" id="item-count"></span>
+                <button type="submit"
+                        class="btn btn-danger btn-sm">
+                  Delete items
+                </button>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for todo in todos.items %}
+          <tr>
+            <td class="checkbox">
+              <label for="bulk_ids"></label>
+              <input class="checkbox-item" id="bulk_ids" name="bulk_ids"
+                     type="checkbox" value="{{ todo.id }}">
+            </td>
+            <td class="description">
+             {{ todo.description }}
+            </td>
+            <td class="todo-at">
+              <time class="from-now"
+                    data-datetime="{{ todo.todo_at }}">
+                {{ todo.todo_at }}
+              </time>
+            </td>
+            {% if current_user.role == 'admin' %}
+              <td class="user">
+                {% if todo.user.username %}
+                  {{ todo.user.username + '(' + todo.user.email + ')' }}
+                {% else %}
+                  {{ todo.user.email }}
+                {% endif %}
+              </td>
+            {% endif %}
+            <td class="completed text-center">
+              {{ helpers.icon_for_completed(todo) }}
+            </td>
+            <td class="actions text-center">
+              <button type="button"
+                      class="btn btn-link dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                <i class="fa fa-cog"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right">
+                {% if not todo.is_complete %}
+                  <a class="dropdown-item" href="{{ url_for('todo.complete', id=todo.id) }}" >
+                    Mark as complete
+                  </a>
+                {% endif %}
+                <a class="dropdown-item" href="{{ url_for('todo.update', id=todo.id) }}" >
+                  Update
+                </a>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% endcall %}
+
+    {{ items.paginate(todos) }}
+  {% endif %}
+{% endblock %}
