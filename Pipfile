@@ -23,6 +23,8 @@ Flask-DebugToolbar = "==0.10.1"
 Flask-Login = "==0.5.0"
 Flask-Mail = "==0.9.1"
 Faker = "==4.1.0"
+pytz = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.8"
