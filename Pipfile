@@ -25,6 +25,7 @@ Flask-Mail = "==0.9.1"
 Faker = "==4.1.0"
 pytz = "*"
 python-dotenv = "*"
+pymysql = "*"
 
 [requires]
 python_version = "3.8"
