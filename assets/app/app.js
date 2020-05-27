@@ -21,7 +21,8 @@ var bulkSelectors = {
 $(document).ready(function() {
   flatpickr('#todo_at', {
     dateFormat: 'Y-m-d H:i:S',
-    enableTime: true
+    enableTime: true,
+    minDate: 'today'
   })
 
   // Date formatting with momentjs.
