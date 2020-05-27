@@ -30,7 +30,7 @@
     "webpack-merge": "~4.2.2"
   },
   "scripts": {
-    "build": "/node_modules/webpack/bin/webpack.js --mode=production -p",
-    "watch": "/node_modules/webpack/bin/webpack.js --mode=development --progress --watch-stdin"
+    "build": "node_modules/webpack/bin/webpack.js --mode=production -p",
+    "watch": "node_modules/webpack/bin/webpack.js --mode=development --progress --watch-stdin"
   }
 }
