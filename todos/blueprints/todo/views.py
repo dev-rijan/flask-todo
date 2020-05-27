@@ -23,7 +23,7 @@ def before_request():
 def list(page):
     search_form = SearchForm()
 
-    sort_by = Todo.sort_by(request.args.get('sort', 'created_on'),
+    sort_by = Todo.sort_by(request.args.get('sort', 'todo_at'),
                            request.args.get('direction', 'desc'))
 
     order_values = '{0} {1}'.format(sort_by[0], sort_by[1])
