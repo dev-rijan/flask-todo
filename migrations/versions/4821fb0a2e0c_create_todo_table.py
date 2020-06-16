@@ -31,10 +31,10 @@ def upgrade():
                               index=True,
                               nullable=False),
                     sa.Column('description', sa.Text, nullable=False),
-                    sa.Column('todo_at', AwareDateTime(), index=True, nullable=False),
+                    sa.Column('todo_at', sa.DateTime()),
                     sa.Column('is_complete', sa.Boolean(), nullable=False, server_default='0'),
-                    sa.Column('created_on', AwareDateTime(), default=tzware_datetime),
-                    sa.Column('updated_on', AwareDateTime(), default=tzware_datetime, onupdate=tzware_datetime))
+                    sa.Column('created_on', sa.TIMESTAMP),
+                    sa.Column('updated_on', sa.TIMESTAMP))
 
 
 def downgrade():
