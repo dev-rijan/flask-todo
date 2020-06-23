@@ -48,6 +48,17 @@
   {{ f(type='checkbox', **kwargs) }} {{ f.label }}
 {%- endmacro -%}
 
+{# Render file field #}
+{%- macro file_field(f) -%}
+   {{ field_label(f) }}
+    <div class="custom-file">
+      {{ f(class='custom-file-input', **kwargs) }}
+      <label for="{{ f.id }}" class="custom-file-label">
+        {{ f.label.text }}
+      </label>
+    </div>
+{% endmacro %}
+
 {# Render a form group with errors for various field types. #}
 {%- macro form_group(f, css_class='') -%}
   {% if f.errors %}
@@ -57,6 +68,9 @@
   {% if f.type == 'BooleanField' %}
     <div class="checkbox">
     {{ checkbox_field(f, **kwargs) }}
+  {% elif f.type == 'FileField' %}
+    <div class="form-group">
+    {{ file_field(f, **kwargs) }}
   {% else %}
     <div class="form-group">
     {{ field_label(f) }}
