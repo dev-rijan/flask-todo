@@ -19,10 +19,14 @@ var bulkSelectors = {
 };
 
 $(document).ready(function() {
+  var minDate = moment()
+      .add(5, 'minutes')
+      .format('YYYY-MM-DD HH:mm:ss')
+
   flatpickr('#todo_at', {
     dateFormat: 'Y-m-d H:i:S',
     enableTime: true,
-    minDate: 'today'
+    minDate: minDate
   })
 
   // Date formatting with momentjs.
