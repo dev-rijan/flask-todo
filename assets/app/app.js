@@ -1,6 +1,7 @@
 import 'modules/js/bootstrap';
 import moment from 'moment';
 import flatpickr from 'flatpickr';
+import bsCustomFileInput from 'bs-custom-file-input'
 
 var pluralize = function (word, count) {
   if (count === 1) { return word; }
@@ -28,6 +29,9 @@ $(document).ready(function() {
     enableTime: true,
     minDate: minDate
   })
+
+  //Display file name in file input
+  bsCustomFileInput.init()
 
   // Date formatting with momentjs.
   $('.from-now').each(function (i, e) {
