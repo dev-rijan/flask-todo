@@ -84,9 +84,13 @@
 
 
 {# Render a form tag that contains a CSRF token and all hidden fields. #}
-{%- macro form_tag(endpoint, fid='', css_class='', method='post') -%}
-  <form action="{{ url_for(endpoint, **kwargs) }}" method="{{ method }}"
-        id="{{ fid }}" class="{{ css_class }}" role="form">
+{%- macro form_tag(endpoint, fid='', css_class='', method='post', multipart=False) -%}
+  <form action="{{ url_for(endpoint, **kwargs) }}"
+        method="{{ method }}"
+        id="{{ fid }}"
+        class="{{ css_class }}"
+        {% if multipart %}enctype="multipart/form-data"{% endif %}
+        role="form">
     {{ form.hidden_tag() }}
     {{ caller () }}
   </form>
