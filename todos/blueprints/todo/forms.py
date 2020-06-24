@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, DateTimeField, StringField
+from wtforms import TextAreaField, DateTimeField, StringField, FileField
 from wtforms.validators import DataRequired, Length, Optional
 
 from lib.util_wtforms import ModelForm
@@ -16,3 +16,5 @@ class TodoForm(ModelForm):
     ])
 
     todo_at = DateTimeField('Todo at', validators=[DataRequired()], format='%Y-%m-%d %H:%M:%S')
+
+    document_file = FileField('document_file')
