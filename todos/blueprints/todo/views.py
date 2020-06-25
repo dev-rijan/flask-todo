@@ -34,7 +34,7 @@ def list(page):
         todo_query = todo_query.filter_by(user_id=current_user.id)
 
     if search_query:
-        todo_query = todo_query.filter(Todo.search_by_user(search_query))
+        todo_query = todo_query.filter(Todo.search(search_query))
 
     todos = todo_query \
         .order_by(text(order_values)) \
