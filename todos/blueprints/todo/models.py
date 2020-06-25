@@ -1,6 +1,6 @@
 from sqlalchemy import or_
 
-from lib.util_sqlalchemy import ResourceMixin, AwareDateTime
+from lib.util_sqlalchemy import ResourceMixin
 from todos.blueprints.user.models import User
 from todos.extensions import db
 
@@ -17,10 +17,14 @@ class Todo(ResourceMixin, db.Model):
                         index=True,
                         nullable=False)
     description = db.Column('description', db.Text, nullable=False)
-    todo_at = db.Column('todo_at', AwareDateTime(), index=True, nullable=False)
+    todo_at = db.Column('todo_at', db.DateTime(), nullable=False)
+    document = db.Column('document', db.String(50))
     is_complete = db.Column('is_complete', db.Boolean(), nullable=False, server_default='0')
 
     user = db.relationship(User, backref='todo')
+
+    def get_storage_path(self):
+        return f"{self.user_id}/{self.id}/{self.document}"
 
     @classmethod
     def bulk_complete(cls, ids):

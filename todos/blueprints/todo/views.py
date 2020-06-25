@@ -1,10 +1,8 @@
-from datetime import datetime
-
-import pytz
 from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
 from sqlalchemy import text
 
+from lib.storage import Storage
 from todos.blueprints.todo.forms import TodoForm, SearchForm
 from todos.blueprints.todo.models import Todo
 
@@ -59,15 +57,32 @@ def create():
         if not todo.user_id:
             todo.user_id = current_user.id
 
-        todo.todo_at = todo.todo_at.astimezone(tz=pytz.utc)
-
         todo.save()
+
+        file = request.files['document_file']
+
+        if file:
+            todo.document = file.filename
+            _upload_document(file, todo)
+            todo.save()
 
         flash('Todo been created successfully.', 'success')
 
         return redirect(url_for('todo.list'))
 
     return render_template('todo/create.html', form=form)
+
+
+@todo.route('/todo/download_document/<int:id>')
+def download_document(id):
+    todo = Todo.query.get(id)
+
+    if not todo.document:
+        return redirect(url_for('todo.list'))
+
+    storage = Storage()
+
+    return redirect(storage.generate_presigned_url(path=todo.get_storage_path()))
 
 
 @todo.route('/todo/update/<int:id>', methods=['GET', 'POST'])
@@ -78,7 +93,11 @@ def update(id):
     if form.validate_on_submit():
         form.populate_obj(todo)
 
-        todo.todo_at = todo.todo_at.replace(tzinfo=pytz.UTC)
+        file = request.files['document_file']
+
+        if file:
+            todo.document = file.filename
+            _upload_document(file, todo)
 
         todo.save()
 
@@ -112,3 +131,11 @@ def bulk_delete():
         flash('No todos were deleted, something went wrong.', 'error')
 
     return redirect(url_for('todo.list'))
+
+
+def _upload_document(file, todo):
+    """
+    Upload document to s3
+    """
+    storage = Storage()
+    return storage.put(file=file, path=todo.get_storage_path())

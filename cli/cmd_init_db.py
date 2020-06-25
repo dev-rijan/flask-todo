@@ -69,12 +69,12 @@ def reset(ctx, with_testdb):
     :param with_testdb: Create a test database
     :return: None
     """
-    ctx.invoke(init_db, with_testdb=with_testdb)
+    ctx.invoke(init, with_testdb=with_testdb)
     ctx.invoke(seed)
 
     return None
 
 
-init_db.add_command(init_db)
+init_db.add_command(init)
 init_db.add_command(seed)
 init_db.add_command(reset)

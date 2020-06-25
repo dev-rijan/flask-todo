@@ -1,5 +1,6 @@
 import datetime
 import pytz
+from flask import current_app
 
 
 def tzware_datetime():
@@ -8,7 +9,7 @@ def tzware_datetime():
 
     :return: Datetime
     """
-    return datetime.datetime.now(pytz.utc)
+    return datetime.datetime.now(tz=pytz.timezone(current_app.config['TIMEZONE']))
 
 
 def timedelta_months(months, compare_date=None):

@@ -14,7 +14,7 @@
 
 <div class="row">
   <div class="col-md-4 offset-md-4">
-    {% call f.form_tag(endpoint, **form_kwargs) %}
+    {% call f.form_tag(endpoint, multipart=True, **form_kwargs) %}
       <legend>{{ legend }}</legend>
 
       {% call f.form_group(form.description, css_class='sm-margin-bottom',
@@ -27,6 +27,9 @@
                               css_class='sm-margin-bottom datetimepicker-input') %}
         {% endcall %}
       </div>
+
+      {% call f.form_group(form.document_file) %}
+      {% endcall %}
 
       <div class="row mt-4">
         <div class="col-md-6">

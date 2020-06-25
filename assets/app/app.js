@@ -1,6 +1,7 @@
 import 'modules/js/bootstrap';
 import moment from 'moment';
 import flatpickr from 'flatpickr';
+import bsCustomFileInput from 'bs-custom-file-input'
 
 var pluralize = function (word, count) {
   if (count === 1) { return word; }
@@ -19,11 +20,18 @@ var bulkSelectors = {
 };
 
 $(document).ready(function() {
+  var minDate = moment()
+      .add(5, 'minutes')
+      .format('YYYY-MM-DD HH:mm:ss')
+
   flatpickr('#todo_at', {
     dateFormat: 'Y-m-d H:i:S',
     enableTime: true,
-    minDate: 'today'
+    minDate: minDate
   })
+
+  //Display file name in file input
+  bsCustomFileInput.init()
 
   // Date formatting with momentjs.
   $('.from-now').each(function (i, e) {

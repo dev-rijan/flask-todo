@@ -48,6 +48,17 @@
   {{ f(type='checkbox', **kwargs) }} {{ f.label }}
 {%- endmacro -%}
 
+{# Render file field #}
+{%- macro file_field(f) -%}
+   {{ field_label(f) }}
+    <div class="custom-file">
+      {{ f(class='custom-file-input file-input', **kwargs) }}
+      <label for="{{ f.id }}" class="custom-file-label">
+        {{ f.label.text }}
+      </label>
+    </div>
+{% endmacro %}
+
 {# Render a form group with errors for various field types. #}
 {%- macro form_group(f, css_class='') -%}
   {% if f.errors %}
@@ -57,6 +68,9 @@
   {% if f.type == 'BooleanField' %}
     <div class="checkbox">
     {{ checkbox_field(f, **kwargs) }}
+  {% elif f.type == 'FileField' %}
+    <div class="form-group">
+    {{ file_field(f, **kwargs) }}
   {% else %}
     <div class="form-group">
     {{ field_label(f) }}
@@ -70,9 +84,13 @@
 
 
 {# Render a form tag that contains a CSRF token and all hidden fields. #}
-{%- macro form_tag(endpoint, fid='', css_class='', method='post') -%}
-  <form action="{{ url_for(endpoint, **kwargs) }}" method="{{ method }}"
-        id="{{ fid }}" class="{{ css_class }}" role="form">
+{%- macro form_tag(endpoint, fid='', css_class='', method='post', multipart=False) -%}
+  <form action="{{ url_for(endpoint, **kwargs) }}"
+        method="{{ method }}"
+        id="{{ fid }}"
+        class="{{ css_class }}"
+        {% if multipart %}enctype="multipart/form-data"{% endif %}
+        role="form">
     {{ form.hidden_tag() }}
     {{ caller () }}
   </form>

@@ -1,9 +1,6 @@
 from alembic import op
 import sqlalchemy as sa
 
-from lib.util_datetime import tzware_datetime
-from lib.util_sqlalchemy import AwareDateTime
-
 
 """create todo table
 
@@ -31,10 +28,11 @@ def upgrade():
                               index=True,
                               nullable=False),
                     sa.Column('description', sa.Text, nullable=False),
-                    sa.Column('todo_at', AwareDateTime(), index=True, nullable=False),
+                    sa.Column('todo_at', sa.DateTime(), nullable=False),
+                    sa.Column('document', sa.String(50)),
                     sa.Column('is_complete', sa.Boolean(), nullable=False, server_default='0'),
-                    sa.Column('created_on', AwareDateTime(), default=tzware_datetime),
-                    sa.Column('updated_on', AwareDateTime(), default=tzware_datetime, onupdate=tzware_datetime))
+                    sa.Column('created_on', sa.TIMESTAMP),
+                    sa.Column('updated_on', sa.TIMESTAMP))
 
 
 def downgrade():

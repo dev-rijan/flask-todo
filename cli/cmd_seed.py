@@ -1,8 +1,6 @@
 import click
 import random
 
-from datetime import datetime
-
 from faker import Faker
 from flask import current_app
 from flask.cli import with_appcontext
@@ -79,11 +77,9 @@ def users():
         if len(random_emails) == 0:
             break
 
-        fake_datetime = fake.date_time_between(
-            start_date='-1y', end_date='now').strftime('%s')
-
-        created_on = datetime.utcfromtimestamp(
-            float(fake_datetime)).strftime('%Y-%m-%dT%H:%M:%S Z')
+        created_on = fake.date_time_between(
+            start_date='-1y', end_date='now')\
+            .strftime("%y-%m-%d %H:%M:%S.%f")
 
         random_percent = random.random()
 
@@ -96,12 +92,6 @@ def users():
 
         random_trail = str(int(round((random.random() * 1000))))
         username = fake.first_name() + random_trail
-
-        fake_datetime = fake.date_time_between(
-            start_date='-1y', end_date='now').strftime('%s')
-
-        current_sign_in_on = datetime.utcfromtimestamp(
-            float(fake_datetime)).strftime('%Y-%m-%dT%H:%M:%S Z')
 
         params = {
             'created_on': created_on,
