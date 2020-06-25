@@ -1,8 +1,6 @@
-import pytz
-from flask import Blueprint, render_template, flash, redirect, url_for, request, app, current_app
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
 from sqlalchemy import text
-from werkzeug.utils import secure_filename
 
 from lib.storage import Storage
 from todos.blueprints.todo.forms import TodoForm, SearchForm
