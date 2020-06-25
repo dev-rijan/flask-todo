@@ -42,7 +42,7 @@ class Todo(ResourceMixin, db.Model):
         return update_count
 
     @classmethod
-    def search_by_user(cls, query):
+    def search(cls, query):
         """
         Search a resource by 1 or more fields.
 
@@ -57,4 +57,4 @@ class Todo(ResourceMixin, db.Model):
         search_chain = (User.email.ilike(search_query),
                         User.username.ilike(search_query))
 
-        return Todo.user.has(or_(*search_chain))
+        return or_(Todo.user.has(or_(*search_chain)), Todo.description.ilike(search_query))
