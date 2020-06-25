@@ -1,6 +1,6 @@
 from sqlalchemy import or_
 
-from lib.util_sqlalchemy import ResourceMixin, AwareDateTime
+from lib.util_sqlalchemy import ResourceMixin
 from todos.blueprints.user.models import User
 from todos.extensions import db
 

@@ -47,6 +47,9 @@
             <th class="col-header text-center completed">
               {{ items.sort('is_completed', 'Completed') }}
             </th>
+            <th class="col-header text-center completed">
+              {{ items.sort('document', 'Document') }}
+            </th>
             <th class="col-header text-center actions">
               <i class="fa fa-cog"></i>
             </th>
@@ -89,6 +92,13 @@
             {% endif %}
             <td class="completed text-center">
               {{ helpers.icon_for_completed(todo) }}
+            </td>
+            <td class="completed text-center">
+              {% if todo.document %}
+                <a href="{{ url_for('todo.download_document', id=todo.id) }}">
+                  <i class="fa fa-download" aria-hidden="true"></i>
+                </a>
+              {% endif %}
             </td>
             <td class="actions text-center">
               <button type="button"

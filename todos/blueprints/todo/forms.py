@@ -17,4 +17,4 @@ class TodoForm(ModelForm):
 
     todo_at = DateTimeField('Todo at', validators=[DataRequired()], format='%Y-%m-%d %H:%M:%S')
 
-    document_file = FileField('document_file')
+    document_file = FileField('Document')

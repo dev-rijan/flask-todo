@@ -52,7 +52,7 @@
 {%- macro file_field(f) -%}
    {{ field_label(f) }}
     <div class="custom-file">
-      {{ f(class='custom-file-input', **kwargs) }}
+      {{ f(class='custom-file-input file-input', **kwargs) }}
       <label for="{{ f.id }}" class="custom-file-label">
         {{ f.label.text }}
       </label>
