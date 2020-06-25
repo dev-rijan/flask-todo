@@ -18,7 +18,8 @@ If you don’t have `make` installed then type the following command one by one.
 
 **Initialize database**: (Assume that you create a database same as defined in DATABASE_URI env variable) 
 
-Run `pipenv run flask init-db`
+Run `pipenv run flask init-db init`
+Run `pipenv run flask init-db seed`
 
 **Run application**: If you have make available in your os then type `make run` from project root dir.
 If you don’t have make installed then type the following command.
