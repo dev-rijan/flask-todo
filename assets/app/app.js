@@ -18,6 +18,7 @@ var bulkSelectors = {
   'itemCount': '#item-count',
   'bulkActions': '#bulk_actions'
 };
+console.log(process.env.AWS_ACCESS_KEY_ID, 'called')
 
 $(document).ready(function() {
   var minDate = moment()

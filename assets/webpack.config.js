@@ -5,11 +5,17 @@ var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 var common = {
   watchOptions: {
     poll: (process.env.WEBPACK_WATCHER_POLL || 'true') === 'true'
   },
+  plugins: [
+    new Dotenv({
+      path: path.resolve(__dirname + '/../.env'), systemvars: true
+    })
+  ],
   module: {
     rules: [
       {
